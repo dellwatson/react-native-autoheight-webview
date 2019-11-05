@@ -14,7 +14,7 @@ const AutoHeightWebView = React.memo(
   forwardRef((props, ref) => {
     const { style, onMessage, onSizeUpdated, source } = props;
 
-    if (!source) {
+    if(!source) {
       return null;
     }
 
@@ -33,14 +33,14 @@ const AutoHeightWebView = React.memo(
     });
     const handleMessage = event => {
       onMessage && onMessage(event);
-      if (!event.nativeEvent) {
+      if(!event.nativeEvent) {
         return;
       }
       let data = {};
       // Sometimes the message is invalid JSON, so we ignore that case
       try {
         data = JSON.parse(event.nativeEvent.data);
-      } catch (error) {
+      } catch(error) {
         console.error(error);
         return;
       }
@@ -68,19 +68,20 @@ const AutoHeightWebView = React.memo(
 
     return (
       <WebView
-        {...props}
-        ref={webView}
-        onMessage={handleMessage}
-        style={[
+        { ...props }
+        ref={ webView }
+        onMessage={ handleMessage }
+        style={ [
           styles.webView,
           {
             width,
             height
           },
           style
-        ]}
-        injectedJavaScript={script}
-        source={currentSource}
+        ] }
+        injectedJavaScript={ script }
+        source={ currentSource }
+        useWebKit={ true }
       />
     );
   }),
